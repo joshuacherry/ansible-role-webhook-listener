@@ -1,0 +1,12 @@
+# {{ ansible_managed }}
+[Unit]
+Description=Webhook-Listener for GitAutodeploy
+
+[Service]
+User={{ webhook_listener_daemon_user }}
+Group={{ webhook_listener_daemon_group }}
+WorkingDirectory={{ webhook_listener_destination }}/
+ExecStart=/usr/bin/python {{ webhook_listener_destination }}/gitautodeploy --config {{ webhook_listener_destination }}/config.json
+
+[Install]
+WantedBy=multi-user.target

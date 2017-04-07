@@ -1,0 +1,43 @@
+// # {{ ansible_managed }}
+{
+  "pidfilepath": "{{ webhook_listener_conf_pidfilepath }}",
+  "logfilepath": "{{ webhook_listener_conf_logfilepath }}",
+  "host": "{{ webhook_listener_conf_host }}",
+  "port": {{ webhook_listener_conf_port }},
+  "global_deploy": [
+    "echo Deploy started!",
+    "echo Deploy completed!"
+  ],
+  "log-level": "INFO",
+//  ###  Log json for each GET request
+//  "log-test-case": true,
+//  "log-test-case-dir": "/repos/samples",
+  "repositories": [
+{% if webhook_listener_conf_repositories is defined %}
+{% for repos in webhook_listener_conf_repositories %}
+    {
+      "url": "{{ repos.url }}",
+      "branch": "{{ repos.branch }}",
+      "remote": "{{ repos.remote }}",
+      "path": "{{ repos.path }}",
+      "deploy": "{{ repos.deploy }}",
+      "secret-token": "{{ repos.secret_token }}",
+      "filters": [
+{% if repos.filters is defined %}
+        {
+{% for item in repos.filters %}
+{% for key, value in item.items() %}
+          "{{ key }}": "{{ value }}"{% endfor %}{% if not loop.last %},
+{% endif %}
+{% endfor %}
+
+        }
+{% endif %}
+      ]
+    }{% if not loop.last %},{% endif %}
+
+{% endfor %}
+{% endif %}
+
+  ]
+}

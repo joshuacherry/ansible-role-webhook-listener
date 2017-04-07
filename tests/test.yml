@@ -1,0 +1,19 @@
+---
+- hosts: all
+  become: yes
+  become_method: sudo
+  roles:
+    - role_under_test
+
+  vars:
+    webhook_listener_version: "stable"
+    webhook_listener_conf_repositories:
+      - url: "https://github.com/joshuacherry/Git-Auto-Deploy.git"
+        branch: "stable"
+        remote: "origin"
+        path: "{{ webhook_listener_destination }}"
+        deploy: "echo deploying"
+        filters:
+          - object_kind: 'push'
+          - ref: 'refs/heads/master'
+        secret_token: ""

@@ -1,0 +1,40 @@
+---
+services: docker
+
+env:
+  - distro: ubuntu1604
+#  - distro: ubuntu1404
+#  - distro: centos7
+#  - distro: centos6
+
+
+script:
+  # Configure test script so we can run extra tests after playbook is run.
+  - export container_id=$(date +%s)
+  - export cleanup=false
+
+  # Download test shim.
+  - wget -O ${PWD}/tests/test.sh https://gist.githubusercontent.com/joshuacherry/481aec647bf62eb05bc97fd8fc725ea2/raw
+  - chmod +x ${PWD}/tests/test.sh
+
+  # Run tests.
+  - ${PWD}/tests/test.sh
+
+  # Ensure webhook-listener is installed.
+  - docker exec $container_id ps -ef | grep webhook-listener
+
+  # Check webhook-listener log for errors
+  #- >
+  #  docker exec $container_id set -e; tail /var/log/webhook-listener.log
+  #  | grep -i -v "Reset branch"
+  #  | grep -i ERROR
+  #  && (echo 'Error check: fail' && exit 1)
+  #  || (echo 'Error check: pass' && exit 0)
+
+after_success:
+  # Clean up.
+  - sudo docker rm -f $container_id
+  #sudo docker exec -i -t 665b4a1e17b6 /bin/bash #by ID
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/

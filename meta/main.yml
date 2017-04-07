@@ -1,0 +1,21 @@
+galaxy_info:
+  author: Joshua Cherry
+  description: Webhook listener for linux.
+  license: license (MIT)
+
+  min_ansible_version: 2.1
+  platforms:
+  - name: Ubuntu
+    versions:
+    - xenial
+  #  - trusty
+  #- name: EL
+  #  versions:
+  #  - 6
+  #  - 7
+
+  galaxy_tags:
+    - webhook
+    - listener
+
+dependencies: []

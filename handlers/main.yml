@@ -1,0 +1,4 @@
+---
+# handlers file for webhook-listener
+- name: restart listener
+  service: "name={{ webhook_listener_name }} state=restarted"
