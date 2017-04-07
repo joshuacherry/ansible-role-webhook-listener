@@ -26,7 +26,7 @@ webhook_listener_conf_repositories:
       - object_kind: 'push'
       - ref: 'refs/heads/master'
     secret_token: ""
-    
+
 # url: The URL to the repository.
 # branch: The branch which will be checked out.
 # remote: The name of the remote to use.
