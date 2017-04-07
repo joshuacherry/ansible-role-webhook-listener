@@ -1,5 +1,6 @@
 webhook-listener
 =========
+[![Build Status](https://travis-ci.org/joshuacherry/ansible-role-webhook-listener.svg?branch=master)](https://travis-ci.org/joshuacherry/ansible-role-webhook-listener)  
 
 Installs [webhook-listener](https://github.com/joshuacherry/Git-Auto-Deploy).
 
