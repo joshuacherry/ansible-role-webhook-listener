@@ -4,6 +4,6 @@
   when: ansible_os_family == 'Debian'
   static: no
 
-- include: setup-RedHat.yml
+- include: setup-Redhat.yml
   when: ansible_os_family == 'RedHat'
   static: no
