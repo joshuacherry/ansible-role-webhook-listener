@@ -2,6 +2,8 @@
 # tasks file for webhook-listener
 - include: setup-Debian.yml
   when: ansible_os_family == 'Debian'
+  static: yes
 
 - include: setup-RedHat.yml
   when: ansible_os_family == 'RedHat'
+  static: yes
