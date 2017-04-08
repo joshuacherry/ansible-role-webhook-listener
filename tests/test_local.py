@@ -26,11 +26,11 @@ with open(travisFile, 'r') as stream:
         envLists = splitDistros(data['env'], "distro")
         envDistroList = envLists[0]
         envVarList = envLists[1]
-        print (envDistroList)
-        print (envVarList)
+        #print (envDistroList)
+        #print (envVarList)
         for distro in envDistroList:
             for key in distro:
-                print(distro)
+                #print(distro)
                 cmd_queue = deque()
                 cmd_queue.append("export "+key+"="+distro[key])
                 cmd_queue.append('set -e')

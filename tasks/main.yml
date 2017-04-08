@@ -1,55 +1,7 @@
 ---
 # tasks file for webhook-listener
-- name: Install git and pip
-  apt:
-    name: "{{ item }}"
-    state: installed
-    update_cache: yes
-    cache_valid_time: 3600
-  with_items:
-    - python-pip
-    - git
+- include: setup-Debian.yml
+  when: ansible_os_family == 'Debian'
 
-- name: Upgrade PIP
-  pip:
-    name: "pip"
-    extra_args: "--upgrade"
-
-- name: Git Clone Repository
-  git:
-    repo: "{{ webhook_listener_repo }}"
-    dest: "{{ webhook_listener_destination }}"
-    version: "{{ webhook_listener_version }}"
-    remote: "{{ webhook_listener_remote }}"
-
-- name: PIP install requirements
-  pip:
-    requirements: "{{ webhook_listener_pip_requirements }}"
-
-- name: Configure listener
-  template:
-    src: "templates/config.json.j2"
-    dest: "{{ webhook_listener_destination }}/config.json"
-    owner: root
-    group: root
-    mode: "0644"
-
-- name: Create init.d Service
-  template:
-    src: "templates/webhook-listener.service.j2"
-    dest: "/etc/systemd/system/{{ webhook_listener_name }}.service"
-    owner: root
-    group: root
-    mode: "0644"
-  register: CreateService
-
-- name: reload systemd
-  command: "systemctl daemon-reload"
-  when: CreateService.changed
-  notify: restart listener
-
-- name: Enable Service
-  service:
-    name: "{{ webhook_listener_name }}"
-    state: started
-    enabled: yes
+- include: setup-RedHat.yml
+  when: ansible_os_family == 'RedHat'
