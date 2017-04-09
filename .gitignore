@@ -1,4 +1,4 @@
 .vagrant/*
 *.retry
-test.sh
-test_local.py
+tests/test.sh
+tests/test_local.py
