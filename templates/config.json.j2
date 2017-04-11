@@ -33,6 +33,18 @@
 
         }
 {% endif %}
+      ],
+      "header-filter": [
+{% if repos.header_filter is defined %}
+        {
+{% for item in repos.header_filter %}
+{% for key, value in item.items() %}
+          "{{ key }}": "{{ value }}"{% endfor %}{% if not loop.last %},
+{% endif %}
+{% endfor %}
+
+        }
+{% endif %}
       ]
     }{% if not loop.last %},{% endif %}
 

@@ -65,6 +65,8 @@ Example Playbook
         filters:
           - object_kind: 'push'
           - ref: 'refs/heads/master'
+        header_filter:
+          - X-GitHub-Event: 'push'
         secret-token: "12345"
 ```
 
