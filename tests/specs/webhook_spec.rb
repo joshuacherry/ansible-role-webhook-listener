@@ -26,7 +26,6 @@ control '02' do
   desc 'Ensures logfile exists in an expected state'
   describe file('/var/log/webhook-listener.log') do
     it { should be_file }
-    its('content') { should match /\[INFO \]  Your branch is up-to-date/ }
     its('content') { should match /\[INFO \]  Repository .* successfully initialized/ }
     its('content') { should match /\[INFO \]  Listening for http connections/ }
 
