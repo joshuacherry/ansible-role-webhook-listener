@@ -1,10 +1,5 @@
 # encoding: utf-8
 
-# use basic tests
-describe package('python-pip') do
-  it { should be_installed }
-end
-
 # extend tests with metadata
 control '01' do
   impact 1.0
