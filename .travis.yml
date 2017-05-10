@@ -1,31 +1,26 @@
 ---
-services: docker
+language: generic
+sudo: required
+services:
+  - docker
 
 env:
-  - distro: ubuntu1604
-#  - distro: ubuntu1404
-  - distro: centos7
-#  - distro: centos6
+  global:
+    # Travis still uses trusty
+    - DOCKER_VERSION=17.03.1~ce-0~ubuntu-trusty
+    - DOCKER_COMPOSE_VERSION=1.13.0
+  matrix:
+    - OS=jessie64 PLAYBOOK=webhook
+    - OS=xenial64 PLAYBOOK=webhook
+    - OS=centos7  PLAYBOOK=webhook
 
-
+before_install:
+  - chmod +x ./scripts/install-docker.sh
+  - chmod +x ./scripts/ci.sh
+  - sudo -E ./scripts/install-docker.sh
+install: true
 script:
-  # Configure test script so we can run extra tests after playbook is run.
-  - export container_id=$(date +%s)
-  - export cleanup=false
-
-  # Download test.
-  - wget -O ${PWD}/tests/test.sh https://gist.githubusercontent.com/joshuacherry/481aec647bf62eb05bc97fd8fc725ea2/raw
-  - chmod +x ${PWD}/tests/test.sh
-
-  # Run tests.
-  - ${PWD}/tests/test.sh
-
-  # Ensure webhook-listener is installed.
-  - docker exec $container_id ps -ef | grep webhook-listener
-
-after_success:
-  # Clean up.
-  - sudo docker rm -f $container_id
+  - make "${OS}" test
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
