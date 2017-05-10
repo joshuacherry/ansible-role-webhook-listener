@@ -4,9 +4,6 @@
 describe package('python-pip') do
   it { should be_installed }
 end
-describe package('git') do
-  it { should be_installed }
-end
 
 # extend tests with metadata
 control '01' do
