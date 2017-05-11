@@ -1,4 +1,5 @@
-.vagrant/*
+### Ansible Template
 *.retry
-tests/test.sh
-tests/test_local.py
+
+### Vagrant Template
+.vagrant/
