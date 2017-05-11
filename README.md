@@ -39,13 +39,30 @@ Installs [webhook-listener](https://github.com/joshuacherry/Git-Auto-Deploy) whi
 
 ## Role Variables
 
-**url:** The URL to the repository.  
-**branch:** The branch which will be checked out.  
-**remote:** The name of the remote to use.  
-**path:** Path to clone the repository to. If omitted, the repository won't be cloned, only the deploy scripts will be executed.  
-**deploy:** A command to be executed. If path is set, the command is executed after a successfull pull.  
-**filters:** Filters to apply to the web hook events so that only the desired events result in executing the deploy actions. See section Filters for more details.  
-**secret-token:** The secret token set for your webhook (currently only implemented for GitHub and GitLab)
+`url`  
+The URL to the repository.  
+`branch`  
+The branch which will be checked out.  
+`remote`  
+The name of the remote to use.  
+`path`  
+Path to clone the repository to. If omitted, the repository won't be cloned, only the deploy scripts will be executed.  
+`deploy`  
+A command to be executed. If path is set, the command is executed after a successfull pull.  
+`filters`  
+Filters to apply to the web hook events so that only the desired events result in executing the deploy actions. See section Filters for more details.  
+`secret-token`  
+The secret token set for your webhook (currently only implemented for GitHub and GitLab)
+
+## Testing
+Local testing can be done using Vagrant.
+1. Bring up the Vagrant VM with `vagrant up`
+2. SSH into the VM with `vagrant ssh` or `ssh 127.0.0.1:2222` or `ssh 10.1.15.10`
+3. Change directories into /vagrant `cd /vagrant`
+4. You can test the role against each Dockerfile with:  
+`make centos7 test`  
+`make jessie64 test`  
+`make xenial64 test`  
 
 ## Example Playbook
 
@@ -91,17 +108,6 @@ Installs [webhook-listener](https://github.com/joshuacherry/Git-Auto-Deploy) whi
           - X-GitHub-Event: 'push'
         secret-token: "12345"
 ```
-
-## Testing
-Local testing can be done using Vagrant.
-1. Bring up the Vagrant VM with `vagrant up`
-2. SSH into the VM with `vagrant ssh` or `ssh 127.0.0.1:2222` or `ssh 10.1.15.10`
-3. Change directories into /vagrant `cd /vagrant`
-4. You can test the role against each Dockerfile with:  
-`make centos7 test`  
-`make jessie64 test`  
-`make xenial64 test`  
-
 
 ## License
 
