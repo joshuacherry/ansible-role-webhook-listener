@@ -8,11 +8,31 @@ Installs [webhook-listener](https://github.com/joshuacherry/Git-Auto-Deploy) whi
 - none
 
 ## Install
-`ansible-galaxy install joshuacherry.webhook-listener`
+#### Install from Ansible Galaxy
+`ansible-galaxy install joshuacherry.webhook-listener`  
+
+#### Install from GitHub
+`ansible-galaxy install git+https://github.com/joshuacherry/ansible-role-webhook-listener.git`
+
+#### Install from GitHub with requirements.yml  
+
+- Configure requirements.yml  
+  ```
+  ## requirements.yml
+
+  # from GitHub, overriding the name and specifying a specific tag
+  - src: https://github.com/joshuacherry/ansible-role-webhook-listener
+    version: master
+    name: webhook-listener
+  ```
+  ```
+  ansible-galaxy install -r requirements.yml
+  ```
+
 
 ## Supported Operating Systems
-| OS            |
-| :------------ |
+| OS            |               |
+| :------------ | :-----------: |
 | Debian 8      | ✓             |
 | Ubuntu 16.04  | ✓             |
 | Centos 7      | ✓             |
